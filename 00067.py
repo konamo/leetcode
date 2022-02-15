@@ -39,6 +39,8 @@ class Solution(object):
         1 & 0 = 0
         1 & 1 = 1 <- carry
         """
+        # convert (binary) string to int
+        # int(value, base=10)
         m = int(a, 2)
         n = int(b, 2)
         carry = 0
@@ -52,14 +54,41 @@ class Solution(object):
             m = ans
             n = carry
 
+        # bin() has '0b' prefix
         return bin(m)[2:]
 
+    def addBinary3(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        if len(a) < len(b):
+            a = '0' * (len(b) - len(a)) + a
+            c = [0] * len(b)
+        else:
+            b = '0' * (len(a) - len(b)) + b
+            c = [0] * len(a)
 
+        carry = 0
+        for ii in range(len(a) - 1, -1, -1):
+            x = int(a[ii])
+            y = int(b[ii])
+
+            out = (x + y + carry) % 2
+            c[ii] = out
+            carry = (x + y + carry) // 2
+
+        if carry:
+            c.insert(0, 1)
+
+        return ''.join(str(s) for s in c)
 
 def main():
     s = Solution()
     assert "10101" == s.addBinary("1010", "1011")
     assert "10101" == s.addBinary2("1010", "1011")
+    assert "10101" == s.addBinary3("1010", "1011")
 
     print("Pass")
     return
