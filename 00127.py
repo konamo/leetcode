@@ -1,5 +1,5 @@
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
+    def ladderLength2(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
         if beginWord == None:
             return 0
 
@@ -44,7 +44,61 @@ class Solution:
 
         return 0
 
+    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
+        if beginWord == None:
+            return 0
 
+        if beginWord == "":
+            return 0
+
+        if endWord == None:
+            return 0
+
+        if endWord == "":
+            return 0
+
+        if endWord not in wordList:
+            return 0
+
+        wordHash = self.buildHash(wordList)
+        changes: int = 1
+
+        search_queue = [beginWord]
+        visited = {beginWord}
+
+        while search_queue:
+            length = len(search_queue)
+            for ii in range(length):
+                word = search_queue.pop(0)
+                if word == endWord:
+                    return changes
+
+                for ii in range(len(word)):
+                    key = word[:ii] + '*' + word[ii+1:]
+                    if key in wordHash:
+                        for nextWord in wordHash[key]:
+                            if nextWord not in visited:
+                                search_queue.append(nextWord)
+                                visited.add(nextWord)
+                        del wordHash[key]
+            changes += 1
+
+        return 0
+
+    def buildHash(self, wordList: list[str]) -> dict:
+        wordHash = {}
+        for word in wordList:
+            # Put * in every possible index and add up its prefix and suffix
+            for i in range(len(word)):
+                prefix = word[:i]
+                suffix = word[i + 1:]
+                key = prefix + '*' + suffix
+                if key in wordHash:
+                    wordHash[key].append(word)
+                else:
+                    wordHash[key] = [word]
+
+        return wordHash
 
 
 
@@ -55,6 +109,7 @@ def main():
     beginWord = "hit"
     endWord = "cog"
     wordList = ["hot","dot","dog","lot","log","cog"]
+    s.buildHash(wordList)
     print(s.ladderLength(beginWord, endWord, wordList))
 
     beginWord = "a"
