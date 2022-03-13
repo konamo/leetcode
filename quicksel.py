@@ -23,6 +23,7 @@ def partition(arr, l, r):
 # kth smallest element in the array.
 # ASSUMPTION: all elements in arr[] are distinct
 def kthSmallest(arr, l, r, k):
+    # k is the relative position to l
 
     print("l:%d, r:%d, k:%d" % (l, r, k))
     # if k is smaller than number of
