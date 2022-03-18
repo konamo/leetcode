@@ -1,23 +1,33 @@
 class MyStack:
 
     def __init__(self):
-        self.s = []
+        self.inQueue = []
+        self.outQueue = []
+        self.front = 0
         
 
     def push(self, x: int) -> None:
-        self.s.append(x)
+        self.inQueue.append(x)
+        self.front = x
         
 
     def pop(self) -> int:
-        return self.s.pop()
+        size = len(self.inQueue)
+        while size > 1:
+            self.front = self.inQueue.pop(0)
+            self.outQueue.append(self.front)
+            size -= 1
+        ret = self.inQueue.pop(0)
+        assert(self.inQueue == [])
+        self.inQueue, self.outQueue = self.outQueue, self.inQueue
+        return ret
         
 
     def top(self) -> int:
-        return self.s[-1]
-        
+        return self.front
 
     def empty(self) -> bool:
-        return len(self.s) == 0
+        return len(self.inQueue) == 0
         
 
 
@@ -27,3 +37,19 @@ class MyStack:
 # param_2 = obj.pop()
 # param_3 = obj.top()
 # param_4 = obj.empty()
+
+
+
+def main():
+    s = MyStack()
+    s.push(0)
+    s.push(1)
+    s.push(2)
+    s.pop()
+    s.top()
+    return
+
+
+
+if __name__ == '__main__':
+    main()
