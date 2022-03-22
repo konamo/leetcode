@@ -1,5 +1,5 @@
 class Solution:
-    def twoSum(self, nums: list[int], target: int) -> list[int]:
+    def twoSum3(self, nums: list[int], target: int) -> list[int]:
         # dfs doesn't work, see test case 4
         found = False
         bag = [False] * len(nums)
@@ -46,6 +46,26 @@ class Solution:
                 return [d[val], ii]
             else:
                 d[target - val] = ii
+        arr = []
+        for i, x in enumerate(nums):
+            arr.append([x, i])
+        arr.sort()  # Sort arr in increasing order by their values.
+        
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        arr = []
+        for i, x in enumerate(nums):
+            arr.append([x, i])
+        arr.sort()
+
+        left, right = 0, len(arr) - 1
+        while left < right:
+            sum2 = arr[left][0] + arr[right][0]
+            if sum2 == target:
+                return [arr[left][1], arr[right][1]]
+            elif sum2 > target:
+                right -= 1  # Try to decrease sum2
+            else:
+                left += 1  # Try to increase sum2
 
 def main():
     s = Solution()
