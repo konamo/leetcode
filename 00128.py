@@ -23,13 +23,13 @@ class Solution:
         ii = 0
 
         while ii < len(nums) - 1:
-            if nums[ii] + 1 == nums[ii + 1]:
-                current += 1
-                ii += 1
-            else:
-                longest = max(current, longest)
-                current = 1
-                ii += 1
+            if nums[ii] != nums[ii + 1]:
+                if nums[ii] + 1 == nums[ii + 1]:
+                    current += 1
+                else:
+                    longest = max(current, longest)
+                    current = 1
+            ii += 1
         longest = max(current, longest)
 
         return longest
