@@ -51,6 +51,7 @@ class Solution:
         for i in range(len(list1)):
             m = list1[i]
 
+            # required by the problem
             if m % (n - len(list1) + 1) != 0 and (n - len(list1) + 1) % m != 0:
                 continue
 
