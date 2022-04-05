@@ -46,12 +46,9 @@ class Solution:
                 return [d[val], ii]
             else:
                 d[target - val] = ii
-        arr = []
-        for i, x in enumerate(nums):
-            arr.append([x, i])
-        arr.sort()  # Sort arr in increasing order by their values.
-        
+
     def twoSum(self, nums: list[int], target: int) -> list[int]:
+        # sort nums first and remember their original positions
         arr = []
         for i, x in enumerate(nums):
             arr.append([x, i])
