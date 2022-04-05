@@ -1,9 +1,12 @@
+from functools import reduce
+
+
 class Solution:
     def singleNonDuplicate2(self, nums: list[int]) -> int:
         s = [ii for ii in nums if nums.count(ii) == 1]
         return s[0]
 
-    def singleNonDuplicate(self, nums: list[int]) -> int:
+    def singleNonDuplicate3(self, nums: list[int]) -> int:
         left, right = 0, len(nums)-1
         while left < right:
             mid = (left + right) // 2
@@ -15,6 +18,19 @@ class Solution:
                 right = mid
         assert(left == right)
         return nums[left]
+    
+    def singleNonDuplicate4(self, nums):
+        lo, hi = 0, len(nums) - 1
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if nums[mid] == nums[mid ^ 1]:
+                lo = mid + 1
+            else:
+                hi = mid
+        return nums[lo]
+
+    def singleNonDuplicate(self, nums):
+        return reduce(lambda x, y: x ^ y, nums)
 
 
 def main():
