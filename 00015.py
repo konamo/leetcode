@@ -19,7 +19,7 @@ class Solution:
                 output.append(ii)
         return output
 
-    def twoSum(self, nums, target):
+    def twoSum2(self, nums, target):
         d = {}
         ans = []
         for ii in nums:
@@ -29,7 +29,28 @@ class Solution:
                 d[target - ii] = ii
         return ans
 
-
+    def twoSum(self, nums, target):
+        left, right = 0, len(nums) - 1
+        ret = []
+        while left < right:
+            sum2 = nums[left] + nums[right]
+            if sum2 == target:
+                ret.append([nums[left], nums[right]])
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1
+                left += 1
+                right -= 1
+            elif sum2 > target:
+                while left < right and nums[right] == nums[right - 1]:
+                    right -= 1  # Try to decrease sum2
+                right -= 1
+            else:
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1 # Try to increase sum2
+                left += 1
+        return ret
 
 def main():
     s = Solution()
