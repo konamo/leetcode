@@ -11,13 +11,7 @@ class Solution:
             else:
                 for jj in ret:
                     ans.append([nums[ii]] + jj)
-
-        # remove the dups
-        output = []
-        for ii in ans:
-            if ii not in output:
-                output.append(ii)
-        return output
+        return ans
 
     def twoSum2(self, nums, target):
         d = {}
@@ -43,12 +37,8 @@ class Solution:
                 left += 1
                 right -= 1
             elif sum2 > target:
-                while left < right and nums[right] == nums[right - 1]:
-                    right -= 1  # Try to decrease sum2
                 right -= 1
             else:
-                while left < right and nums[left] == nums[left + 1]:
-                    left += 1 # Try to increase sum2
                 left += 1
         return ret
 
