@@ -18,6 +18,10 @@ class Solution:
         # and then looks for any substring longer than that
         for end in range(len(s)):
             count[s[end]] = count.get(s[end], 0) + 1
+
+            # after the initial setup, the maxCount could only be
+            # updated if most freq char in the sliding window is
+            # bigger
             maxCount = max(maxCount, count[s[end]])
             
             # the idea is:
@@ -25,7 +29,8 @@ class Solution:
             if end - start + 1 > k + maxCount:
                 count[s[start]] -= 1
                 start += 1
-                update maxCount
+                # we don't need to decrease maxCount here because:
+                # we don't want the sliding window to be shrinked too much
             else:
                 # update the longest substring if it meets the requirement
                 maxLength = max(maxLength, end - start + 1)
