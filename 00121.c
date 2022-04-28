@@ -1,5 +1,6 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
+// works
 int maxProfit (int* prices, int pricesSize)
 {
     int buy = 0, sell = 1;
@@ -17,6 +18,8 @@ int maxProfit (int* prices, int pricesSize)
     return profit;
 }
 
+
+// Time Limit Exceeded
 int maxProfit (int* prices, int pricesSize)
 {
     int buy, sell;
@@ -31,6 +34,8 @@ int maxProfit (int* prices, int pricesSize)
     return profit;
 }
 
+
+// Works
 int maxProfit (int* prices, int pricesSize)
 {
     int buy = 0, sell;
