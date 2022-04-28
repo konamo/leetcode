@@ -1,33 +1,59 @@
 #include <stdio.h>
 #include <stdint.h>
-#include <math.h>
 
+
+// swap
+// bit 31 -- bit 0
+// bit 30 -- bit 1
+// bit 29 -- bit 2
+// ....
 uint32_t reverseBits (uint32_t n) {
-    int start = 0;
-    int end = 31;
-    int t;
+    int ii;
+    uint32_t l, h;
 
-    while (start < end) {
-        t = n & (0x1 << start);
-        n = (n & ~(0x1 << start)) | (n & (0x1 << end));
-        n = (n & ~(0x1 << end)) | (t << end);
-        start++;
-        end--;
+
+    for (ii = 0; ii < 16; ii++) {
+        // get the lower bit
+        l = (n & (0x1ul << ii)) >> ii;
+
+        // get the higher bit
+        h = (n & (0x1ul << (31 - ii))) >> (31 - ii);
+
+        // set lower bit to 0
+        n &= ~(0x1ul << ii);
+
+        // set high bit to 0
+        n &= ~(0x1ul << (31 - ii));
+
+        // swap
+        n |= l << (31 - ii);
+        n |= h << ii;
     }
+
     return n;
 }
 
-
+// get bits from n right to left
 uint32_t reverseBits2 (uint32_t n)
 {
     uint32_t m = 0;
-    for (int i = 0; i < 32; i++, n >>= 1) {
+    int ii;
+
+    for (ii = 0; ii < 32; ii++) {
         m <<= 1;
         m |= n & 1;
+        n >>= 1;
     }
+
     return m;
 }
 
+
+// ABCDE....XYZ
+// 1st swap: ...XYZ | ABCDE...
+// 2nd swap: XYZ|...| ...|ABCD
+// .....            | ...|CD|AB
+// last             | ...|D|C|B|A
 uint32_t reverseBits3 (uint32_t n)
 {
     n = (n >> 16) | (n << 16);
@@ -38,12 +64,14 @@ uint32_t reverseBits3 (uint32_t n)
     return n;
 }
 
+
+
+
 int main ()
 {
     printf("x%x\n", reverseBits(0xabcdefa5));
     printf("x%x\n", reverseBits2(0xabcdefa5));
     printf("x%x\n", reverseBits3(0xabcdefa5));
 
-    printf("%f\n", sqrt(-4));
     return 0;
 }
