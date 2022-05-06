@@ -27,10 +27,11 @@ int countConsistentStrings (char * allowed, char ** words, int wordsSize)
 }
 
 
+// bitmap solution
 int countConsistentStrings (char * allowed, char ** words, int wordsSize)
 {
     int bitmap = 0;
-    int count = wordsSize;
+    int count = wordsSize; // I like this idea!
 
     for (int ii = 0; ii < strlen(allowed); ii++) {
         bitmap |= 1ull << (allowed[ii] - 'a');
@@ -44,6 +45,32 @@ int countConsistentStrings (char * allowed, char ** words, int wordsSize)
             }
         }
     }
+
+    return count;
+}
+
+
+// extra space but run faster
+int countConsistentStrings (char * allowed, char ** words, int wordsSize)
+{
+    bool dict['z'+1] = {0};
+    int count = wordsSize;
+
+
+    for (int ii = 0; ii < strlen(allowed); ii++) {
+        dict[allowed[ii]]++;
+    }
+
+
+    for (int ii = 0; ii < wordsSize; ii++) {
+        for (int jj = 0; jj < strlen(words[ii]); jj++) {
+            if (!dict[words[ii][jj]]) {
+                count--;
+                break;
+            }
+        }
+    }
+
 
     return count;
 }
