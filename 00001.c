@@ -27,7 +27,7 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 
     qsort(pair, numsSize, sizeof(pair_t), mycompare);
 
-    for (int ii = 0; ii < numsSize; ii++) {
+    while (left < right) {
         if (pair[left].value + pair[right].value == target) {
             break;;
         } else if (pair[left].value + pair[right].value < target) {
